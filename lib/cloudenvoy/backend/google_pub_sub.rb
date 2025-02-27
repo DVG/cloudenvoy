@@ -34,7 +34,7 @@ module Cloudenvoy
       def backend
         @backend ||= Google::Cloud::PubSub.new(**{
           project_id: config.gcp_project_id,
-          emulator_host: development? ? Cloudenvoy::Config::EMULATOR_HOST : nil
+          emulator_host: config.emulator_host
         }.compact)
       end
 

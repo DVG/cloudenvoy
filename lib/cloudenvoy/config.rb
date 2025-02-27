@@ -6,11 +6,7 @@ module Cloudenvoy
   # Holds cloudenvoy configuration. See Cloudenvoy#configure
   class Config
     attr_writer :secret, :gcp_project_id,
-                :gcp_sub_prefix, :processor_path, :logger, :mode
-
-    # Emulator host
-    EMULATOR_HOST = ENV['PUBSUB_EMULATOR_HOST'] || 'localhost:8085'
-
+                :gcp_sub_prefix, :processor_path, :logger, :mode, :emulator_host
     # Default application path used for processing messages
     DEFAULT_PROCESSOR_PATH = '/cloudenvoy/receive'
 
@@ -55,6 +51,13 @@ module Cloudenvoy
       ENV['CLOUDENVOY_ENV'] || ENV['RAILS_ENV'] || ENV['RACK_ENV'] || 'development'
     end
 
+    def emulator_host
+      mode == :development ? @emulator_host : nil
+    end
+
+    def emulator_host=(val)
+      @emulator_host = val
+    end
     #
     # Return the Cloudenvoy logger.
     #
